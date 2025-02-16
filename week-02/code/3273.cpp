@@ -30,16 +30,26 @@ int main(){
         }
     }
 
-    int size = max - min + 1;
-    int* cnt = new int[size];
-    fill(cnt, cnt + size, 0);
+    int* cnt = new int[max + 1];
+    fill(cnt, cnt + max + 1, 0);
 
     for(int i = 0; i < n; i++){
-        cnt[x - arr[i] - min]++;
+        cnt[arr[i]]++;
     }
+
+    int result = 0;
 
     for(int i = 0; i < n; i++){
-        if(cnt)
+        if(arr[i] * 2 == x){
+            continue;
+        }
+        int target = x - arr[i];
+        if (target < 0 || target > max){
+            continue;
+        }
+        if(cnt[target] > 0){
+            result++;
+        }
     }
-
+    cout << result / 2;
 }

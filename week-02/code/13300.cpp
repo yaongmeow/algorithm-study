@@ -1,4 +1,5 @@
 #include<iostream>
+#include<algorithm>
 
 using namespace std;
 
@@ -9,30 +10,32 @@ int main(){
     int n, k;
     cin >> n >> k;
 
-    int* sex = new int[n];
-    int* year = new int[n];
+    int cnt[6][2];
 
-    int female = 0, male;
+    for(int i = 0; i < 6; i++){
+        cnt[i][0] = 0;
+        cnt[i][1] = 0;
+    }
 
     for(int i = 0; i < n; i++){
-        cin >> sex[i] >> year[i];
-        if (sex[i] == 0){
-            female++;
+        int gender, year;
+        cin >> gender >> year;
+        cnt[year-1][gender]++;
+    }
+
+    int rooms = 0;
+
+    for(int i = 0; i < 6; i++){
+        if(cnt[i][0] % k != 0){
+            rooms++;
         }
+        rooms += cnt[i][0] / k;
+        if(cnt[i][1] % k != 0){
+            rooms++;
+        }
+        rooms += cnt[i][1] / k;
     }
 
-    male = n - female;
-
-    int largerGender;
-
-    if(male > female){
-        largerGender = male;
-    } else{
-        largerGender = female;
-    }
-
-
-
-
+    cout << rooms;
 
 }
